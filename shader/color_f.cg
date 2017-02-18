@@ -1,0 +1,8 @@
+float4 main(
+	    float3 vNormal : TEXCOORD0,
+	    float2 vTexCoord : TEXCOORD1,
+	    uniform float4 u_color
+	    ) : COLOR
+{
+  return float4(u_color);
+}

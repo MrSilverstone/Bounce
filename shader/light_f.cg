@@ -1,0 +1,38 @@
+struct Light {
+  float4 position;
+  float3 intensities;
+  float ambientCoefficient;
+};
+
+
+static Light light = Light
+(
+ float4(30.f, 0.f, -70.0f, 0.f),
+ float3(1.f, 1.f, 1.f),
+ 0.2f
+);
+
+struct VertexOut
+{
+  float4 outPosition : POSITION;
+  float3 vPosition : TEXCOORD0;
+  float4 vNormal: TEXCOORD1;
+  float2 vTexCoord: TEXCOORD2;
+};
+
+float4 main(
+       uniform sampler2D tex,
+       uniform float4x4 model,
+       uniform float3 cameraPosition,
+       VertexOut vOut
+       ) : COLOR
+{
+  float4 vTexColor = tex2D(tex, vOut.vTexCoord);
+  float fDiffuseIntensity = max(0.0, dot(normalize(vOut.vNormal), -light.position));
+
+  float4 outputColor = vTexColor * float4(light.intensities*
+					  (light.ambientCoefficient + fDiffuseIntensity),
+					  1.f); 
+
+  return outputColor;
+}

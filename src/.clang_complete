@@ -1,0 +1,7 @@
+-std=c++14
+-Wall
+-Wetra
+-pthread
+-I/usr/local/vitasdk/arm-vita-eabi/include
+-I../include
+-I../libs/include
